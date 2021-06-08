@@ -3,6 +3,7 @@ package br.com.personapi.personapi.controller;
 import br.com.personapi.personapi.dto.PersonDTO;
 import br.com.personapi.personapi.dto.response.MessageResponseDTO;
 import br.com.personapi.personapi.entities.Person;
+import br.com.personapi.personapi.exception.PersonNotFournfExceptiond;
 import br.com.personapi.personapi.repositories.PersonRepository;
 import br.com.personapi.personapi.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class PersonController {
     @GetMapping
     public List<PersonDTO> listAll(){
         return personService.listAll();
+    }
+    @GetMapping("/{id}")
+    public PersonDTO findBYiD(@PathVariable Long id) throws PersonNotFournfExceptiond {
+        return personService.findById(id);
     }
 }
