@@ -33,12 +33,21 @@ public class PersonController {
     public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO){
         return personService.createPerson(personDTO);
     }
+
     @GetMapping
     public List<PersonDTO> listAll(){
         return personService.listAll();
     }
+
     @GetMapping("/{id}")
     public PersonDTO findBYiD(@PathVariable Long id) throws PersonNotFournfExceptiond {
         return personService.findById(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(Long id) throws PersonNotFournfExceptiond {
+        personService.delete(id);
+    }
+
 }
