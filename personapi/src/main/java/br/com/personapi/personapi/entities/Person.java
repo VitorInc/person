@@ -1,5 +1,6 @@
 package br.com.personapi.personapi.entities;
 
+import br.com.personapi.personapi.dto.PersonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
+public class Person  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
