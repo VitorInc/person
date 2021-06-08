@@ -46,7 +46,7 @@ public class PersonController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(Long id) throws PersonNotFournfExceptiond {
+    public void deleteById(@PathVariable  Long id) throws PersonNotFournfExceptiond {
         personService.delete(id);
     }
 
