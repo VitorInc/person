@@ -9,11 +9,8 @@ import br.com.personapi.personapi.mapper.PersonMapper;
 import br.com.personapi.personapi.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,9 +29,7 @@ public class PersonService {
         Person personToSave = personMapper.toModel(personDTO);
 
         Person savedPerson = personRepository.save(personToSave);
-        return MessageResponseDTO.builder().
-                messange("Created person with ID ").
-                build();
+        return createMessageResponse(savedPerson.getId(), "Created person with ID");
     }
 
 
@@ -52,13 +47,26 @@ public class PersonService {
        return personMapper.toDTO(person);
     }
 
-    private Person verifyIfExists(Long id) throws PersonNotFournfExceptiond{
-        return personRepository.findById(id).orElseThrow(() ->new PersonNotFournfExceptiond(id));
-    }
-
     public void delete(Long id) throws PersonNotFournfExceptiond {
         verifyIfExists(id);
 
         personRepository.findById(id);
+    }
+
+    public MessageResponseDTO updateById(Long id, PersonDTO personDTO) throws PersonNotFournfExceptiond {
+        verifyIfExists(id);
+        
+        Person personToUpdate = personMapper.toModel(personDTO);
+
+        Person savedPerson = personRepository.save(personToUpdate);
+        return createMessageResponse(savedPerson.getId(), "Updated person with ID");
+    }
+
+    private Person verifyIfExists(Long id) throws PersonNotFournfExceptiond{
+        return personRepository.findById(id).orElseThrow(() ->new PersonNotFournfExceptiond(id));
+    }
+
+    private MessageResponseDTO createMessageResponse(Long id, String s){
+        return MessageResponseDTO.builder().messange(s+ id).build();
     }
 }
